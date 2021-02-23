@@ -1,0 +1,61 @@
+ <div class = 'section'>
+    <div class ='friends'>
+      <h2>Sent Friend Request</h2>
+      <div>
+        <% @friendships.each do |friendship| %>
+          <p>
+            <span>
+              <%= friendship.friend.name  %>
+            </span>
+            <!-- <% if friendship.status %>
+              <span>
+                <button><%= link_to 'Confirm Request', friendship_path(friend_id: friendship), method: :put  %></button>
+              </span>
+            <% end %> -->
+          </p>
+        <% end %>
+      </div>
+    </div>
+    <div class ='friends'>
+      <h2> My Friends List</h2>
+      <div>
+        <h2> Confirmed Sent Request </h2>
+        <div>
+          <% @friendships.confirmed.each do |friendship| %>
+            <% if friendship.status %>
+              <div><%= friendship.friend.name %></div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <div>
+        <h2> Confirmed Received Requests </h2>
+        <div>
+          <% @inverse_friendships.confirmed.each do |inverse_friendship| %>
+            <div><%= inverse_friendship.user.name %></div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class ='friends'>
+      <h2>Received Friend Request</h2>
+      <div>
+        <% @inverse_friendships.each do |inverse_friendship| %>
+          <div>
+            <h3>            
+              <%= inverse_friendship.user.name %>  
+            </h3>
+            <p>
+              <span>
+                <%= link_to 'Accept Friendship', friendship_path(friendship_id: inverse_friendship), method: :put, class: 'profile-link' %>
+              </span>
+            
+              <span class="profile-link">
+                <%= link_to 'Reject Request',  friendship_path(friendship_id: inverse_friendship), method: :delete, class: 'profile-link' %>
+              </span>
+            </p>
+          </div>
+        <% end %>
+      </div>
+    </div> 
+  </div>
